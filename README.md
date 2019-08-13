@@ -18,5 +18,16 @@ FS1030 - Electronic Medical Record Project
 2. Restore the backup to the newly created database. Give the path where the dump exists<br><br>
 `mysql -u root -p emr < ~/emr/db/emr_db.sql`
 
+## Default users
+```
+-- User 1
+Username: Admin
+Password: 1234
+
+-- User 2
+Username: fs1030
+Password: 1234
+```
+
 ## Entity Relationship Diagram:
 ![](/db/emr_er_diagram.png)

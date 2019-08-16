@@ -20,3 +20,4 @@ FS1030 - Electronic Medical Record Project
 
 ## Entity Relationship Diagram:
 ![](/db/emr_er_diagram.png)
+

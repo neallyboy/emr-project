@@ -1,84 +1,32 @@
 const express = require('express');
-const db = require('../db');
+const onePatient = require('./patient');
+const deletePatient = require('./patient');
+const onePatientAllergies = require('./allergies');
+const careProvider = require('./care-provider');
+const patientImmunization = require('./immunization');
+const patientRadiologyImages = require('./radiology-images');
+
+//Create instance of express router
 const router = express.Router();
 
-router.get('/patient', async (req, res, next) => {
-    try {
-        let results = await db.allPatients();
-        res.json(results);
-    } catch (e) {
-        console.log(e);
-        res.sendstatus(500);
-    }
-});
+/**
+ * Define routes
+**/
 
-router.get('/patient/:id', async (req, res, next) => {
-    try {
-        let results = await db.onePatient(req.params.id);
-        res.json(results);
-    } catch (e) {
-        console.log(e);
-        res.sendstatus(500);
-    }
-});
+//Patient route
+router.get('/patient/:id', onePatient.get);
+router.delete('/patient/:id', deletePatient.delete);
 
-router.delete('/patient/:id', async (req, res, next) => {
-    try {
-        db.deletePatient(req.params.id);
-    } catch (e) {
-        console.log(e);
-        res.sendstatus(500);
-    }
-});
+//Allergies route
+router.get('/allergies/:id', onePatientAllergies.get);
 
-router.get('/patient/allergies', async (req, res, next) => {
-    try {
-        let results = await db.allPatientAllergies();
-        res.json(results);
-    } catch (e) {
-        console.log(e);
-        res.sendstatus(500);
-    }
-});
+//Care providers route
+router.get('/care-provider/:id', careProvider.get);
 
-router.get('/patient/allergies/:id', async (req, res, next) => {
-    try {
-        let results = await db.onePatientAllergies(req.params.id);
-        res.json(results);
-    } catch (e) {
-        console.log(e);
-        res.sendstatus(500);
-    }
-});
+//Immunization route
+router.get('/immunization/:id', patientImmunization.get);
 
-router.get('/patient/care-provider/:id', async (req, res, next) => {
-    try {
-        let results = await db.careProvider(req.params.id);
-        res.json(results);
-    } catch (e) {
-        console.log(e);
-        res.sendstatus(500);
-    }
-});
-
-router.get('/patient/immunization/:id', async (req, res, next) => {
-    try {
-        let results = await db.immunization(req.params.id);
-        res.json(results);
-    } catch (e) {
-        console.log(e);
-        res.sendstatus(500);
-    }
-});
-
-router.get('/patient/radiology-image/:id', async (req, res, next) => {
-    try {
-        let results = await db.radiologyImage(req.params.id);
-        res.json(results);
-    } catch (e) {
-        console.log(e);
-        res.sendstatus(500);
-    }
-});
+//Radiology images route
+router.get('/radiology-images/:id', patientRadiologyImages.get);
 
 module.exports = router;

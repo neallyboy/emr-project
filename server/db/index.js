@@ -46,19 +46,7 @@ emrdb.deletePatient = (id) => {
     })
 };
 
-//All patient allergies
-emrdb.allPatientAllergies = () => {
-    return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM patient_allergies', (err, results) => {
-            if (err) {
-                return reject(err);
-            }
-            return resolve(results);
-        });
-    });
-};
-
-//One patients allergies
+//Patients allergies
 emrdb.onePatientAllergies = (id) => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM patient_allergies WHERE patient_id = ?', [id], (err, results) => {
@@ -83,7 +71,7 @@ emrdb.careProvider = (id) => {
 };
 
 //Patient immunization
-emrdb.immunization = (id) => {
+emrdb.patientImmunization = (id) => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM patient_immunization WHERE patient_id = ?', [id], (err, results) => {
             if (err) {
@@ -94,7 +82,8 @@ emrdb.immunization = (id) => {
     });
 };
 
-emrdb.labTest = (id) => {
+//Patient Labtest
+emrdb.patientLabTest = (id) => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM patient_lab_test WHERE patient_id = ?', [id], (err, results) => {
             if (err) {
@@ -105,7 +94,8 @@ emrdb.labTest = (id) => {
     });
 };
 
-emrdb.radiologyImage = (id) => {
+//Patient Radiology Image
+emrdb.patientRadiologyImages = (id) => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM patient_radiology_image WHERE patient_id = ?', [id], (err, results) => {
             if (err) {
@@ -115,5 +105,7 @@ emrdb.radiologyImage = (id) => {
         });
     });
 };
+
+
 
 module.exports = emrdb;

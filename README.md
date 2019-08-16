@@ -31,3 +31,4 @@ Password: 1234
 
 ## Entity Relationship Diagram:
 ![](/db/emr_er_diagram.png)
+

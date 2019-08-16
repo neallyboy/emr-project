@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/api/patient', apiRouter);
+app.use('/api/', apiRouter);
 
 
 app.listen(process.env.PORT || '4000', () => {

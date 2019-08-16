@@ -38,7 +38,7 @@ emrdb.onePatient = (id) => {
 
 //Delete a patient
 emrdb.deletePatient = (id) => {
-    pool.query('DELETE FROM patients WHERE health_card_number = ?', [id], (err, results) => {
+    pool.query('DELETE FROM patients WHERE health_card_number = ?', [id], (err) => {
         if (err) {
             console.log(err);
         }
@@ -57,6 +57,18 @@ emrdb.onePatientAllergies = (id) => {
         });
     });
 };
+
+//All alergies
+emrdb.allAllergies = () => {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM allergies', (err, results) =>{
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
 
 //Patient care provider
 emrdb.careProvider = (id) => {
@@ -82,6 +94,18 @@ emrdb.patientImmunization = (id) => {
     });
 };
 
+emrdb.allImmunizations = () => {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM immunization', (err, results) =>{
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+
 //Patient Labtest
 emrdb.patientLabTest = (id) => {
     return new Promise((resolve, reject) => {
@@ -93,6 +117,17 @@ emrdb.patientLabTest = (id) => {
         });
     });
 };
+
+emrdb.allLabTests = () => {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM lab_test', (err, results) =>{
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
 
 //Patient Radiology Image
 emrdb.patientRadiologyImages = (id) => {

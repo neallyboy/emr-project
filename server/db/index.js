@@ -36,15 +36,115 @@ emrdb.onePatient = (id) => {
     });
 };
 
+
+//Delete all patient allergies as part of delete patient
+emrdb.deleteAllPatientAllergies = (id) => {
+    return new Promise((resolve, reject) => {
+        pool.query('DELETE FROM patient_allergies WHERE patient_id = ?', [id], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        });
+    });
+};
+
+//Delete all patient immunizations as part of delete patient
+emrdb.deleteAllPatientImmunizations = (id) => {
+    return new Promise((resolve, reject) => {
+        pool.query('DELETE FROM patient_immunization WHERE patient_id = ?', [id], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        });
+    });
+};
+
+//Delete all patient radiology images as part of delete patient
+emrdb.deleteAllPatientRadiologyImages = (id) => {
+    return new Promise((resolve, reject) => {
+        pool.query('DELETE FROM patient_radiology_image WHERE patient_id = ?', [id], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        });
+    });
+};
+
+//Delete all patient lab tests as part of delete patient
+emrdb.deleteAllPatientLabTests = (id) => {
+    return new Promise((resolve, reject) => {
+        pool.query('DELETE FROM patient_lab_test WHERE patient_id = ?', [id], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        });
+    });
+};
+
+//Delete all patient care providers as part of delete patient
+emrdb.deleteAllPatientCareProviders = (id) => {
+    return new Promise((resolve, reject) => {
+        pool.query('DELETE FROM patient_care_provider WHERE patient_id = ?', [id], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        });
+    });
+};
+
 //Delete a patient
 emrdb.deletePatient = (id) => {
-    pool.query('DELETE FROM patients WHERE health_card_number = ?', [id], (err) => {
-        if (err) {
-            console.log(err);
-        }
-        res.send("Successfully delete patient");
-    })
+    return new Promise((resolve, reject) => {
+        pool.query('DELETE FROM patients WHERE patient_id = ?', [id], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        });
+    });
 };
+
+emrdb.createPatient = (newPatient) => {
+    pool.query('INSERT INTO patients VALUES \
+    health_card_number =?;\
+    first_name =?;\
+    last_name=?;\
+    date_of_birth=?;\
+    gender=?;\
+    street_number=?;\
+    street_name=?;\
+    state=?;\
+    zip_code=?:\
+    phone=?;\
+    email=?;\
+    insert_date=?;\
+    last_update_date=?;\
+    '), [
+        newPatient.health_card_number,
+        newPatient.first_name,
+        newPatient.last_name,
+        newPatient.date_of_birth,
+        newPatient.gender,
+        newPatient.street_number,
+        newPatient.street_name,
+        newPatient.state,
+        newPatient.zip_code,
+        newPatient.phone,
+        newPatient.email,
+        newPatient.insert_date,
+        newPatient.last_update_date],
+         (err) => {
+            if (err) {
+                console.log(err)
+            }
+                 res.send("Successfully created patient")
+    }
+}
 
 //Patients allergies
 emrdb.onePatientAllergies = (id) => {

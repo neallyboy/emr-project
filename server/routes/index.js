@@ -2,6 +2,7 @@ const express = require('express');
 const allPatients = require('./all-patients');
 const onePatient = require('./patient');
 const deletePatient = require('./patient');
+const createPatient = require('./patient');
 const onePatientAllergies = require('./allergies');
 const allAllergies = require('./allergies');
 const careProvider = require('./care-provider');
@@ -28,6 +29,7 @@ router.get('/patients', allPatients.get);
 //Patient by health card route
 router.get('/patient/:id', onePatient.get);
 router.delete('/patient/:id', deletePatient.delete);
+router.post('/patient', createPatient.post);
 
 //All allergies route
 router.get('/allergies', allAllergies.get);

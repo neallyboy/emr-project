@@ -134,6 +134,33 @@ emrdb.createPatient = (newPatient) => {
         })
     })
 }
+
+//Update existing patient
+emrdb.updatePatient = (updatedPatient, id) => {
+    console.log(updatedPatient);
+    const sqlString = 'UPDATE patients SET health_card_number=?, first_name=?, last_name=?, date_of_birth=?, gender=?, street_number=?, street_name=?, state=?, zip_code=?, phone=?, email=?, last_update_date=current_date WHERE patient_id =?';
+    return new Promise((resolve, reject) => {
+        pool.query(sqlString, [
+            updatedPatient.health_card_number,
+            updatedPatient.first_name,
+            updatedPatient.last_name,
+            updatedPatient.date_of_birth,
+            updatedPatient.gender,
+            updatedPatient.street_number,
+            updatedPatient.street_name,
+            updatedPatient.state,
+            updatedPatient.zip_code,
+            updatedPatient.phone,
+            updatedPatient.email,
+            id
+        ], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
     
 //Patients allergies
 emrdb.onePatientAllergies = (id) => {

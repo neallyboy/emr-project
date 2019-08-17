@@ -26,15 +26,15 @@ async function deletePatient (req, res) {
 };
 
 async function createPatient (req, res) {
-    const newPatient = req.body;
-    console.log(newPatient);
-    /*
-    try {db.createPatient(newPatient);
+    newPatient = req.body;
+    try {
+        let results = await db.createPatient(newPatient);
+        res.json(results);
     } catch (e) {
         console.log(e);
         res.sendstatus(500);
-    }*/
-}
+    }
+};
 
 module.exports = {
     get: onePatient,

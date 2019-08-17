@@ -109,43 +109,32 @@ emrdb.deletePatient = (id) => {
     });
 };
 
+//Create new patient
 emrdb.createPatient = (newPatient) => {
-    pool.query('INSERT INTO patients VALUES \
-    health_card_number =?;\
-    first_name =?;\
-    last_name=?;\
-    date_of_birth=?;\
-    gender=?;\
-    street_number=?;\
-    street_name=?;\
-    state=?;\
-    zip_code=?:\
-    phone=?;\
-    email=?;\
-    insert_date=?;\
-    last_update_date=?;\
-    '), [
-        newPatient.health_card_number,
-        newPatient.first_name,
-        newPatient.last_name,
-        newPatient.date_of_birth,
-        newPatient.gender,
-        newPatient.street_number,
-        newPatient.street_name,
-        newPatient.state,
-        newPatient.zip_code,
-        newPatient.phone,
-        newPatient.email,
-        newPatient.insert_date,
-        newPatient.last_update_date],
-         (err) => {
+    console.log(newPatient);
+    const sqlString = 'INSERT INTO patients SET health_card_number=?, first_name=?, last_name=?, date_of_birth=?, gender=?, street_number=?, street_name=?, state=?, zip_code=?, phone=?, email=?, insert_date=current_date, last_update_date=current_date';
+    return new Promise((resolve, reject) => {
+        pool.query(sqlString, [
+            newPatient.health_card_number,
+            newPatient.first_name,
+            newPatient.last_name,
+            newPatient.date_of_birth,
+            newPatient.gender,
+            newPatient.street_number,
+            newPatient.street_name,
+            newPatient.state,
+            newPatient.zip_code,
+            newPatient.phone,
+            newPatient.email
+        ], (err, results) => {
             if (err) {
-                console.log(err)
+                return reject(err);
             }
-                 res.send("Successfully created patient")
-    }
+            return resolve(results);
+        })
+    })
 }
-
+    
 //Patients allergies
 emrdb.onePatientAllergies = (id) => {
     return new Promise((resolve, reject) => {
@@ -302,3 +291,7 @@ emrdb.patientDetails = (id) => {
 };
 
 module.exports = emrdb;
+
+
+
+

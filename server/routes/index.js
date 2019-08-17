@@ -29,7 +29,7 @@ router.get('/patients', allPatients.get);
 //Patient by health card route
 router.get('/patient/:id', onePatient.get);
 router.delete('/patient/:id', deletePatient.delete);
-router.post('patient', createPatient.post);
+router.post('/patient', createPatient.post);
 
 //All allergies route
 router.get('/allergies', allAllergies.get);

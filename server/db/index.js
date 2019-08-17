@@ -3,8 +3,13 @@ const mysql = require('mysql');
 const pool = mysql.createPool({
     connectionLimit: 10,
     user: 'root',
+<<<<<<< HEAD
     password: 'twEe7TJd',
     database: 'emr',
+=======
+    password: 'sandman',
+    database: 'emr_db',
+>>>>>>> 5e60185bcb6fc94223b434bae80b8ba48fa95c22
     host: 'localhost',
     port: '3306',
     multipleStatements: true
@@ -53,6 +58,59 @@ emrdb.deletePatient = (id) => {
     })
 };
 
+//Create new patient
+emrdb.createPatient = (newPatient) => {
+    console.log(newPatient);
+    const sqlString = 'INSERT INTO patients SET health_card_number=?, first_name=?, last_name=?, date_of_birth=?, gender=?, street_number=?, street_name=?, state=?, zip_code=?, phone=?, email=?, insert_date=current_date, last_update_date=current_date';
+    return new Promise((resolve, reject) => {
+        pool.query(sqlString, [
+            newPatient.health_card_number,
+            newPatient.first_name,
+            newPatient.last_name,
+            newPatient.date_of_birth,
+            newPatient.gender,
+            newPatient.street_number,
+            newPatient.street_name,
+            newPatient.state,
+            newPatient.zip_code,
+            newPatient.phone,
+            newPatient.email
+        ], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+//Update existing patient
+emrdb.updatePatient = (updatedPatient, id) => {
+    console.log(updatedPatient);
+    const sqlString = 'UPDATE patients SET health_card_number=?, first_name=?, last_name=?, date_of_birth=?, gender=?, street_number=?, street_name=?, state=?, zip_code=?, phone=?, email=?, last_update_date=current_date WHERE patient_id =?';
+    return new Promise((resolve, reject) => {
+        pool.query(sqlString, [
+            updatedPatient.health_card_number,
+            updatedPatient.first_name,
+            updatedPatient.last_name,
+            updatedPatient.date_of_birth,
+            updatedPatient.gender,
+            updatedPatient.street_number,
+            updatedPatient.street_name,
+            updatedPatient.state,
+            updatedPatient.zip_code,
+            updatedPatient.phone,
+            updatedPatient.email,
+            id
+        ], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+    
 //Patients allergies
 emrdb.onePatientAllergies = (id) => {
     return new Promise((resolve, reject) => {

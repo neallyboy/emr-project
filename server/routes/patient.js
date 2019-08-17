@@ -19,7 +19,20 @@ async function deletePatient (req, res) {
     }
 };
 
+async function updatePatient (req, res) {
+    updatedPatient = req.body;
+    try {
+        let results = await db.updatePatient(updatedPatient, req.params.id);
+        res.json(results);
+    } catch (e) {
+        console.log(e);
+        res.sendstatus(500);
+    }
+};
+
 module.exports = {
     get: onePatient,
-    delete: deletePatient
+    delete: deletePatient,
+    post: createPatient,
+    put: updatePatient
   };

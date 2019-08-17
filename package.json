@@ -4,10 +4,9 @@
   "private": true,
   "dependencies": {
     "body-parser": "^1.19.0",
-    "@babel/preset-env": "^7.5.5",
-    "babel-cli": "^6.26.0",
-    "babel-runtime": "^6.26.0",
     "bootstrap": "^4.3.1",
+    "concurrently": "^4.1.2",
+    "cors": "^2.8.5",
     "datatables.net": "^1.10.19",
     "datatables.net-dt": "^1.10.19",
     "dotenv": "^8.0.0",
@@ -20,16 +19,17 @@
     "react": "^16.8.6",
     "react-data-table-component": "^3.0.4",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "reactstrap": "^8.0.1",
     "sequelize": "^5.12.3",
-    "styled-components": "^4.3.2",
-    "webpack-cli": "^3.3.6"
+    "styled-components": "^4.3.2"
   },
   "scripts": {
-    "start": "npx nodemon server/server.js -w server",
-    "dev": "webpack-dev-server --env.dev",
-    "build": "webpack"
+    "start": "concurrently \"npx nodemon server/server.js -w server\" \"react-scripts start\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,16 +46,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@babel/preset-react": "^7.0.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.6",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-1": "^6.24.1",
-    "css-loader": "^3.2.0",
-    "webpack": "^4.39.2",
-    "webpack-dev-server": "^3.8.0"
-  }
+  "devDependencies": {}
 }

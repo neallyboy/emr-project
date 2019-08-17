@@ -2,6 +2,11 @@ const express = require('express');
 const allPatients = require('./all-patients');
 const onePatient = require('./patient');
 const deletePatient = require('./patient');
+<<<<<<< HEAD
+=======
+const createPatient = require('./patient');
+const updatePatient = require('./patient');
+>>>>>>> 5e60185bcb6fc94223b434bae80b8ba48fa95c22
 const onePatientAllergies = require('./allergies');
 const allAllergies = require('./allergies');
 const careProvider = require('./care-provider');
@@ -25,7 +30,7 @@ const router = express.Router();
 //All patients route
 router.get('/patients', allPatients.get);
 
-//Patient by health card route
+//Search patient by health card, delete patient by patient id
 router.get('/patient/:id', onePatient.get);
 router.delete('/patient/:id', deletePatient.delete);
 

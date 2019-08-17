@@ -2,11 +2,18 @@ const mysql = require('mysql');
 
 const pool = mysql.createPool({
     connectionLimit: 10,
-    user: '',
-    password: '',
-    database: '',
+    user: 'root',
+    password: 'twEe7TJd',
+    database: 'emr',
     host: 'localhost',
     port: '3306'
+});
+
+pool.getConnection(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+    console.log('Connected to the MySQL server.');
 });
 
 let emrdb = {};

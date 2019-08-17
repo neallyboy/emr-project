@@ -8,10 +8,6 @@ FS1030 - Electronic Medical Record Project
 * 100 patients
 * 4 care providers
 
-## EMR Database still in progress:
-* Implement users table
-* Implement permissions table i.e. edit access
-
 ## Create and restore database:
 1. Create Database by opening the terminal<br><br>
 `mysqladmin -u root -p create emr`<br><br>
@@ -30,5 +26,5 @@ Password: 1234
 ```
 
 ## Entity Relationship Diagram:
-![](/db/emr_er_diagram.png)
+![](/emr_db/emr_er_diagram.png)
 

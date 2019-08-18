@@ -74,34 +74,16 @@ const columns = [
   }
 ];
 
-export default class InfoTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { apiResponse: "" };
-  }
+export default class PatientDetails extends React.Component {
 
-  async callAPI() {
-      let response = await fetch("http://localhost:4000/api/patients", {
-        crossDomain: true,
-        headers: {'Content-Type':'application/json'},
-      });
-      let responseJSON = await response.json()
-      await this.setState({ apiResponse: responseJSON });
-      console.log(this.state.apiResponse);
-  }
 
-  componentDidMount() {
-      this.callAPI();
-      //console.log(this.state);
-  }
   render(){
-      //const { response }= this.state.apiResponse;
       return(
         <div>
           <DataTable
           title="Patients"
           columns={columns}
-          data={this.state.apiResponse}
+          data={this.props.searchdown}
         />
         </div>
       )}

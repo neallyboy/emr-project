@@ -48,8 +48,12 @@ export default class State extends React.Component {
           headers: {'Content-Type':'application/json'},
         })
         let responseJSON = await response.json();
-        await this.setState({ apiResponse: [responseJSON] });
-        console.log(this.state.apiResponse);
+        let dob = responseJSON.date_of_birth
+        let dobsliced = dob.slice(0,10)
+        console.log(dobsliced);
+        responseJSON.date_of_birth = dobsliced;
+        await this.setState({ apiResponse: [responseJSON], healthCardNumber: responseJSON.health_card_number, patientId: responseJSON.patient_id });
+        console.log(responseJSON.date_of_birth);
     }
     updateInputValue(evt) {
       this.setState({

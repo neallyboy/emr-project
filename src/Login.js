@@ -8,6 +8,7 @@ export default class Login extends React.Component {
           apiResponse: "",
           user: "",
           password: "",
+          LoggedIn: false
         };
         this.updateInputPassValue = this.updateInputPassValue.bind(this);
         this.updateInputUserValue = this.updateInputUserValue.bind(this);
@@ -22,13 +23,16 @@ export default class Login extends React.Component {
         console.log(this.state.user);
         const loginDetails = {user: `${this.state.user}`, password: `${this.state.password}`};
         console.log(loginDetails);
-        fetch("http://localhost:4000/api/login", 
+        let response = await fetch("http://localhost:4000/api/login", 
           {
             crossDomain: true,
             headers: {'Content-Type':'application/json'},
             method: 'post',
             body: JSON.stringify(loginDetails)
           })
+        if (response.status === '200'){
+          this.setState({LoggedIn: true});
+        }
       }
       async updateInputUserValue(evt){
         await this.setState({
@@ -53,6 +57,7 @@ export default class Login extends React.Component {
         <FormGroup>
             <button onClick={()=>this.callAPI()}>Submit</button>
         </FormGroup>
+        {!this.state.LoggedIn ? <p>You are not logged in</p> : <p>You Are Logged In</p>}
         </div>
     );
   }

@@ -117,6 +117,7 @@ export default class PatientDetails extends React.Component {
     
   }
 
+
   async submitForm(e){
     const formData = new FormData(e.target)
    const user = {}

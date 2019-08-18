@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const pool = mysql.createPool({
     connectionLimit: 10,
     user: 'root',
-    password: 'sandman',
+    password: 'Carter15',
     database: 'emr_db',
     host: 'localhost',
     port: '3306',
@@ -11,6 +11,18 @@ const pool = mysql.createPool({
 });
 
 let emrdb = {};
+
+//Login
+emrdb.login = (loginDetails) => {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM users WHERE username = ?', [loginDetails.user], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        });
+    });
+};
 
 //Get all patients
 emrdb.allPatients = () => {
@@ -189,7 +201,73 @@ emrdb.allAllergies = () => {
 //Patient care provider
 emrdb.careProvider = (id) => {
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM patient_care_provider WHERE patient_id = ?', [id], (err, results) => {
+        pool.query('SELECT * FROM care_provider WHERE care_provider_id = ?', [id], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        });
+    });
+};
+
+//Create care provider
+emrdb.createCareProvider = (newCareProvider) => {
+    console.log(newCareProvider);
+    const sqlString = 'INSERT INTO care_provider SET title=?, first_name=?, last_name=?, date_of_birth=?, gender=?, street_number=?, street_name=?, state=?, zip_code=?, phone=?, email=?, school=?';
+    return new Promise((resolve, reject) => {
+        pool.query(sqlString, [
+            newCareProvider.title,
+            newCareProvider.first_name,
+            newCareProvider.last_name,
+            newCareProvider.date_of_birth,
+            newCareProvider.gender,
+            newCareProvider.street_number,
+            newCareProvider.street_name,
+            newCareProvider.state,
+            newCareProvider.zip_code,
+            newCareProvider.phone,
+            newCareProvider.email,
+            newCareProvider.school
+        ], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+emrdb.updateCareProvider = (updatedCareProvider, id) => {
+    console.log(updatedCareProvider);
+    const sqlString = 'UPDATE care_provider SET title=?, first_name=?, last_name=?, date_of_birth=?, gender=?, street_number=?, street_name=?, state=?, zip_code=?, phone=?, email=?, school=? WHERE care_provider_id=?';
+    return new Promise((resolve, reject) => {
+        pool.query(sqlString, [
+            newCareProvider.title,
+            newCareProvider.first_name,
+            newCareProvider.last_name,
+            newCareProvider.date_of_birth,
+            newCareProvider.gender,
+            newCareProvider.street_number,
+            newCareProvider.street_name,
+            newCareProvider.state,
+            newCareProvider.zip_code,
+            newCareProvider.phone,
+            newCareProvider.email,
+            newCareProvider.school,
+            id
+        ], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+//Delete Care Provider
+emrdb.deleteCareProvider = (id) => {
+    return new Promise((resolve, reject) => {
+        pool.query('DELETE FROM care_provider WHERE care_provider_id = ?', [id], (err, results) => {
             if (err) {
                 return reject(err);
             }
@@ -296,7 +374,7 @@ emrdb.patientBillingDetails = (id) => {
 //Patient care provider
 emrdb.patientCareProvider = (id) => {
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM v_patient_care_provider WHERE patient_name = ?', [id], (err, results) => {
+        pool.query('SELECT * FROM patient_care_provider WHERE patient_id = ?', [id], (err, results) => {
             if (err) {
                 return reject(err);
             }

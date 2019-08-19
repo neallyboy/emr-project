@@ -26,6 +26,7 @@ export default class State extends React.Component {
         this.state = {
           isOpen: false,
           inputValue: '',
+          patientHealthCard: '',
         };
         this.sendSearch = this.sendSearch.bind(this);
       }
@@ -47,6 +48,7 @@ export default class State extends React.Component {
           crossDomain: true,
           headers: {'Content-Type':'application/json'},
         })
+        console.log(response);
         let responseJSON = await response.json();
         let dob = responseJSON.date_of_birth
         let dobsliced = dob.slice(0,10)
